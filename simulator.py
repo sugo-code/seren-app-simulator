@@ -1,5 +1,6 @@
 # Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxigen, isSleeping
 from azure.iot.device.aio import IoTHubDeviceClient
+from azure.iot.device import Message
 from dotenv import load_dotenv
 from datetime import datetime
 import asyncio
@@ -15,13 +16,16 @@ load_dotenv(dotenv_path=os.path.join(os.getcwd(), '.env'))
 idList = ['1', '2']
 d = random.choice(idList)
 
-client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
-client.connect()
+try:
+    client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
+    client.connect()
+except:
+    raise ConnectionError("Cannot connect to Azure IoT Hub, please check the Connection String")
 
 async def sendMessage(jsonData: str):
     print('Sending message...')
     try:
-        await client.send_message(jsonData)
+        await client.send_message(Message(str(jsonData), content_encoding="UTF-8", content_type="application/json"))
         print(f'Sent\n{jsonData}')
     except:
         print('Your message could not be sent')
