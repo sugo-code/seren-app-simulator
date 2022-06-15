@@ -14,8 +14,6 @@ Every 30 seconds the script will generate some random data like in the example b
     "isFallen": false
 }
 ```
-After the JSON is generated, the script automatically publish it into a Azure ioT Hub MQTT queue
-## Certificates
-The script uses the *paho mqtt* library to push the data into the queue. To do so, we have generated some CA Certificates. 
-In order to generate the certificates we used a bash script provided by Microsoft.
-These certificates needs to be re-generated every 30 days and need to be changed into the script
+After the JSON is generated, the script automatically publish it into a Azure IoT Hub MQTT queue
+## Connection
+In order to connect and add messages you have to create an environment variable with the *device* connection string (you can get it from IoT Hub)
