@@ -7,29 +7,18 @@ import asyncio
 import os
 import random
 import time
-import json
 import warnings
 warnings.filterwarnings('ignore')
 load_dotenv(dotenv_path=os.path.join(os.getcwd(), '.env'))
 
-
-idList = ['1', '2']
-d = random.choice(idList)
-
-try:
-    client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
-    client.connect()
-except:
-    raise ConnectionError("Cannot connect to Azure IoT Hub, please check the Connection String")
-
 async def sendMessage(jsonData: str):
     print('Sending message...')
     try:
-        await client.send_message(Message(str(jsonData), content_encoding="UTF-8", content_type="application/json"))
+        await client.send_message(Message(jsonData, content_encoding="UTF-8", content_type="application/json"))
         print(f'Sent\n{jsonData}')
     except:
         print('Your message could not be sent')
-
+        
 def generateData(devId: int):
     isSleeping = False
     isFallen = False
@@ -46,7 +35,16 @@ def generateData(devId: int):
         'isSleeping': isSleeping,
         'isFallen': isFallen
     }
-    return json.dumps(jsonData)
+    return str(jsonData)
+
+idList = ['1', '2']
+d = random.choice(idList)
+
+try:
+    client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
+    client.connect()
+except:
+    raise ConnectionError("Cannot connect to Azure IoT Hub, please check the Connection String")
 
 while True:
     asyncio.run(sendMessage(generateData(d)))
