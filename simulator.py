@@ -1,4 +1,4 @@
-# Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxigen, isSleeping, isFallen
+# Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxg, bodyTemp, bloodPrs, isSleeping, isFallen
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
 from iothub_devices import getDevices
@@ -33,6 +33,8 @@ def generateData(devId: int): # method to generate the random JSON data
         'walkCount': random.randrange(0, 10),
         'heartFrq': random.randrange(50, 60),
         'bloodOxg': random.randrange(98, 100),
+        'bodyTemp': round(random.uniform(36.4, 36.6,), 1),
+        'bloodPrs': random.randrange(100, 120),
         'isSleeping': isSleeping,
         'isFallen': isFallen
     }
