@@ -1,6 +1,7 @@
 # Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxigen, isSleeping, isFallen
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
+from iothub_devices import getDevices
 from dotenv import load_dotenv
 from datetime import datetime
 import asyncio
@@ -37,8 +38,9 @@ def generateData(devId: int): # method to generate the random JSON data
     }
     return str(jsonData)
 
-idList = ['1', '2']
-d = random.choice(idList)
+dev = list()
+cs = os.getenv("IOT_HUB_CONNECTION_STRING")
+getDevices(dev, cs)
 
 try:
     client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
@@ -47,5 +49,6 @@ except:
     raise ConnectionError("Cannot connect to Azure IoT Hub, please check the Connection String")
 
 while True:
+    d = random.choice(dev)
     asyncio.run(sendMessage(generateData(d)))
     time.sleep(10)
