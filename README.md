@@ -1,4 +1,4 @@
-# Seren-Up - Bracalet Data Simulator
+# Seren-Up - Bracelet Data Simulator
 ## Summary
 The script will generate some data in *JSON* format to simulate a bracalet activity
 ## Functionality
