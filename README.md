@@ -15,5 +15,8 @@ Every 30 seconds the script will generate some random data like in the example b
 }
 ```
 After the JSON is generated, the script automatically publish it into a Azure IoT Hub MQTT queue
+## Usage
+Before executing the script, please run ```py -m pip install -r requirements.txt ```
 ## Connection
 In order to connect and add messages you have to create an environment variable with the *device* connection string (you can get it from IoT Hub)
+
