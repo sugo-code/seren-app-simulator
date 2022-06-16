@@ -1,6 +1,6 @@
 # Seren-Up - Bracelet Data Simulator
 ## Summary
-The script will generate some data in *JSON* format to simulate a bracalet activity
+The script will generate some data in *JSON* format to simulate a bracelet activity
 ## Functionality
 Every 30 seconds the script will generate some random data like in the example below:
 ```
