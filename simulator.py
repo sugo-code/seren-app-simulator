@@ -1,4 +1,4 @@
-# Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxigen, isSleeping
+# Composizione del JSON: deviceId, timeStamp,  walkCount, heartFrq, bloodOxigen, isSleeping, isFallen
 from azure.iot.device.aio import IoTHubDeviceClient
 from azure.iot.device import Message
 from dotenv import load_dotenv
@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings('ignore')
 load_dotenv(dotenv_path=os.path.join(os.getcwd(), '.env'))
 
-async def sendMessage(jsonData: str):
+async def sendMessage(jsonData: str): # method to send the message to Azure IoT Hub
     print('Sending message...')
     try:
         await client.send_message(Message(jsonData, content_encoding="UTF-8", content_type="application/json"))
@@ -19,7 +19,7 @@ async def sendMessage(jsonData: str):
     except:
         print('Your message could not be sent')
         
-def generateData(devId: int):
+def generateData(devId: int): # method to generate the random JSON data
     isSleeping = False
     isFallen = False
     if  datetime.now().hour >= 22:
