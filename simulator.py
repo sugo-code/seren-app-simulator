@@ -32,18 +32,19 @@ def generateData(devId: int): # method to generate the random JSON data
         isSleeping = True
     if random.randrange(0,200) == 150:
         isFallen = True
+    # NON TOCCARE IL NOME E IL FORMATO DEI VALUE
     jsonData = {
-        'deviceId': d,
+        'deviceId': devId,
         'timeStamp': str(datetime.now()),
         'walkCount': random.randrange(0, 10),
         'heartFrq': random.randrange(50, 60),
         'bloodOxg': random.randrange(98, 100),
         'bodyTemp': round(random.uniform(36.4, 36.6,), 1),
         'bloodPrs': random.randrange(100, 120),
-        'isSleeping': isSleeping,
-        'isFallen': isFallen,
         'serendipityLvl': random.randrange(0, 100),
-        'batteryLvl': batteryLvl 
+        'batteryLvl': batteryLvl,
+        'isSleeping': str(isSleeping),
+        'isFallen': str(isFallen)
     }
     jsonCount+=1
     return str(jsonData)
@@ -60,4 +61,4 @@ except:
 while True:
     d = random.choice(devList)
     asyncio.run(sendMessage(generateData(d)))
-    time.sleep(5)
+    time.sleep(3)
