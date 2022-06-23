@@ -23,6 +23,11 @@ async def sendMessage(jsonData: str): # method to send the message to Azure IoT 
 def generateData(devId: int): # method to generate the random JSON data
     isSleeping = False
     isFallen = False
+    batteryLvl = 100
+    jsonCount = 0
+    if jsonCount == 10:
+        batteryLvl-1
+        jsonCount = 0
     if  datetime.now().hour >= 22:
         isSleeping = True
     if random.randrange(0,200) == 150:
@@ -36,13 +41,15 @@ def generateData(devId: int): # method to generate the random JSON data
         'bodyTemp': round(random.uniform(36.4, 36.6,), 1),
         'bloodPrs': random.randrange(100, 120),
         'isSleeping': isSleeping,
-        'isFallen': isFallen
+        'isFallen': isFallen,
+        'serendipityLvl': random.randrange(0, 100),
+        'batteryLvl': batteryLvl 
     }
+    jsonCount+=1
     return str(jsonData)
 
-dev = list()
-cs = os.getenv("IOT_HUB_CONNECTION_STRING")
-getDevices(dev, cs)
+devList = list()
+getDevices(devList, os.getenv("IOT_HUB_CONNECTION_STRING"))
 
 try:
     client = IoTHubDeviceClient.create_from_connection_string(os.getenv("CONNECTION_STRING"))
@@ -51,6 +58,6 @@ except:
     raise ConnectionError("Cannot connect to Azure IoT Hub, please check the Connection String")
 
 while True:
-    d = random.choice(dev)
+    d = random.choice(devList)
     asyncio.run(sendMessage(generateData(d)))
-    time.sleep(10)
+    time.sleep(5)
