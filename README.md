@@ -16,7 +16,6 @@ Every 30 seconds the script will generate some random data like in the example b
     'batteryLvl': 98,
     'isSleeping': False,
     'isFallen': False
-    
 }
 ```
 After the JSON is generated, the script automatically publish it into a Azure IoT Hub MQTT queue
