@@ -5,13 +5,18 @@ The script will generate some data in *JSON* format to simulate a bracelet activ
 Every 30 seconds the script will generate some random data like in the example below:
 ```
 {
-    "deviceId": 4,
-    "timeStamp": "2022-06-10 20:36:00.707347",
-    "walkCount": 7,
-    "heartFrq": 50,
-    "bloodOxg": 98,
-    "isSleeping": false,
-    "isFallen": false
+    'deviceId': 'ad8a9e55-ee64-4912-a016-6e62af009a00',
+    'timeStamp': '2022-07-13 14:15:34.477860',
+    'walkCount': 5,
+    'heartFrq': 56,
+    'bloodOxg': 98,
+    'bodyTemp': 36.5,
+    'bloodPrs': 114,
+    'serendipityLvl': 99,
+    'batteryLvl': 98,
+    'isSleeping': False,
+    'isFallen': False
+    
 }
 ```
 After the JSON is generated, the script automatically publish it into a Azure IoT Hub MQTT queue
